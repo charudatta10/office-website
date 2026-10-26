@@ -23,7 +23,8 @@ jobs:
           lfs: true   # harmless if you don't use LFS; needed if the wasm files are in LFS
 
       - uses: pnpm/action-setup@v4
-        # reads the pnpm version from package.json "packageManager"; add `with: version: 9` if it isn't set
+        with:
+          version: 9
 
       - uses: actions/setup-node@v4
         with:

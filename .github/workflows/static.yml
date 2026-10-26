@@ -42,21 +42,36 @@ jobs:
         run: |
           set -euo pipefail
           docker pull "$DS_IMAGE"
+          # The default entrypoint runs documentserver-generate-allfonts during
+          # boot, which is what produces sdkjs/common/AllFonts.js. Create the
+          # container, start it, and wait for that generated file.
           cid=$(docker create "$DS_IMAGE")
-          dst="out/$APP_ROOT_VERSION"
-          docker cp "$cid:/var/www/onlyoffice/documentserver/sdkjs" "$dst/sdkjs"
-          docker cp "$cid:/var/www/onlyoffice/documentserver/web-apps" "$dst/web-apps"
-          docker cp "$cid:/var/www/onlyoffice/documentserver/fonts" "$dst/fonts"
-          docker cp "$cid:/var/www/onlyoffice/documentserver/sdkjs-plugins" "$dst/sdkjs-plugins"
-          docker rm "$cid"
-          # api.js is normally generated at container startup from this template
-          cp "$dst/web-apps/apps/api/documents/api.js.tpl" \
-             "$dst/web-apps/apps/api/documents/api.js"
-          # documentserver-generate-allfonts.sh must have run in the image;
-          # fail fast if the generated files are missing
-          test -f "$dst/sdkjs/common/AllFonts.js"
+          docker start "$cid"
+          for i in $(seq 1 60); do
+            if docker exec "$cid" test -s /var/www/onlyoffice/documentserver/sdkjs/common/AllFonts.js; then
+              break
+            fi
+            sleep 2
+          done
+          docker exec "$cid" test -s /var/www/onlyoffice/documentserver/sdkjs/common/AllFonts.js
 
-      # The committed stub tree in public/ only exists so the build finds
+          # Replace the committed public/ stub tree entirely — docker cp into a
+          # pre-existing sdkjs/ directory would nest it as sdkjs/sdkjs.
+          rm -rf "out/$APP_ROOT_VERSION"
+          mkdir -p "out/$APP_ROOT_VERSION"
+          src=/var/www/onlyoffice/documentserver
+          docker cp "$cid:$src/sdkjs" "out/$APP_ROOT_VERSION/sdkjs"
+          docker cp "$cid:$src/web-apps" "out/$APP_ROOT_VERSION/web-apps"
+          docker cp "$cid:$src/fonts" "out/$APP_ROOT_VERSION/fonts"
+          docker cp "$cid:$src/sdkjs-plugins" "out/$APP_ROOT_VERSION/sdkjs-plugins"
+          docker rm -f "$cid"
+
+          # api.js is normally generated at container startup from this template
+          cp "out/$APP_ROOT_VERSION/web-apps/apps/api/documents/api.js.tpl" \
+             "out/$APP_ROOT_VERSION/web-apps/apps/api/documents/api.js"
+          chmod -R a+rX "out/$APP_ROOT_VERSION"
+
+      # The stub tree in public/ only exists so the build finds
       # api.js/preload.html; it is fully shadowed by the extracted assets.
       - name: Verify editor entry points
         run: |
@@ -64,6 +79,9 @@ jobs:
           test -s "out/$APP_ROOT_VERSION/web-apps/apps/api/documents/api.js"
           test -s "out/$APP_ROOT_VERSION/web-apps/apps/documenteditor/main/index.html"
           test -s "out/$APP_ROOT_VERSION/web-apps/vendor/requirejs/require.js"
+          test -s "out/$APP_ROOT_VERSION/sdkjs/common/AllFonts.js"
+          test -s "out/$APP_ROOT_VERSION/sdkjs/word/sdk-all-min.js"
+          du -sh "out/$APP_ROOT_VERSION"
 
       # GitHub Pages can't send "Content-Encoding: br", so decompress any
       # pre-compressed x2t assets in the build output

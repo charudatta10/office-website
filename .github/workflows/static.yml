@@ -60,6 +60,13 @@ jobs:
               # run it explicitly so the font lists exist before packing.
               documentserver-generate-allfonts.sh false || echo "allfonts generator skipped"
               cd /var/www/onlyoffice/documentserver
+              # api.js is normally generated at container startup from this
+              # template. Produce it here (as root, inside the image) so it is
+              # packed into web-apps.tar — the host cannot write into the
+              # extracted tree, whose dirs keep the image owner/mode.
+              cp web-apps/apps/api/documents/api.js.tpl \
+                 web-apps/apps/api/documents/api.js
+              chmod -R a+rX .
               # Help-documentation GIFs are ~514MB of the 664MB web-apps tree
               # and IE-only bundles are dead weight; neither is loaded by the
               # editor at runtime. Pruning keeps the Pages artifact ~457MB.
@@ -73,11 +80,6 @@ jobs:
             tar -xf "$dst/$d.tar" -C "$dst"
             rm -f "$dst/$d.tar"
           done
-
-          # api.js is normally generated at container startup from this template
-          cp "$dst/web-apps/apps/api/documents/api.js.tpl" \
-             "$dst/web-apps/apps/api/documents/api.js"
-          chmod -R a+rX "$dst"
 
       # The stub tree in public/ only exists so the build finds
       # api.js/preload.html; it is fully shadowed by the extracted assets.

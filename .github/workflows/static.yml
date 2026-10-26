@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true   # harmless if you don't use LFS; needed if the wasm files are in LFS
+
+      - uses: pnpm/action-setup@v4
+        # reads the pnpm version from package.json "packageManager"; add `with: version: 9` if it isn't set
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      # GitHub Pages can't send "Content-Encoding: br", so decompress any
+      # pre-compressed x2t assets in the build output
+      - name: Decompress brotli x2t assets
+        run: |
+          sudo apt-get install -y brotli
+          find out -path 'out/x2t*' -type f | while read -r f; do
+            if brotli -t "$f" 2>/dev/null; then
+              brotli -d -f "$f" -o "$f.tmp" && mv "$f.tmp" "$f"
+              echo "decompressed $f"
+            fi
+          done
+
+      - run: touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

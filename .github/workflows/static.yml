@@ -34,6 +34,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /office-website
 
       # GitHub Pages can't send "Content-Encoding: br", so decompress any
       # pre-compressed x2t assets in the build output

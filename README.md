@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="./public/logo.svg" width="120" height="120" alt="Office App Logo">
+  <img src="./public/logo.png" width="120" height="120" alt="Office App Logo">
 </p>
 
-<h1 align="center">ZIZIYI Office</h1>
+<h1 align="center">MyOffice FOSS Office Suite</h1>
 
 <p align="center">
   <strong>A modern, local-first Office document preview and editing solution.</strong>
@@ -12,32 +12,31 @@
   <img src="https://img.shields.io/badge/version-0.1.0-blue.svg" alt="Version">
   <img src="https://img.shields.io/badge/framework-Next.js%2015-black.svg" alt="Framework">
   <img src="https://img.shields.io/badge/license-AGPL%20v3-orange.svg" alt="License">
-  <a href="https://office.ziziyi.com/">
-    <img src="https://img.shields.io/badge/website-office.ziziyi.com-blue.svg" alt="Website">
+  <a href="https://charudatta10.github.io/office-website/">
+    <img src="https://img.shields.io/badge/website-charudatta10.github.io/office-website-blue.svg" alt="Website">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://office.ziziyi.com/"><strong>🚀 Live Demo</strong></a> | <a href="README.zh-CN.md">中文版</a> | <span>English</span>
+  <a href="https://charudatta10.github.io/office-website/"><strong>🚀 Live Demo</strong></a> | <a href="README.zh-CN.md">中文版</a> | <span>English</span>
 </p>
 
 <p align="center">
   <strong>Quick Create:</strong>
-  <a href="https://office.ziziyi.com/editor?new=docx">📄 Word</a> | 
-  <a href="https://office.ziziyi.com/editor?new=xlsx">📊 Excel</a> | 
-  <a href="https://office.ziziyi.com/editor?new=pptx">📽️ PowerPoint</a>
+  <a href="https://charudatta10.github.io/office-website/editor?new=docx">📄 Word</a> | 
+  <a href="https://charudatta10.github.io/office-website/editor?new=xlsx">📊 Excel</a> | 
+  <a href="https://charudatta10.github.io/office-website/editor?new=pptx">📽️ PowerPoint</a>
 </p>
 
 ---
 
 ## 🚀 Overview
 
-**ZIZIYI Office** is a powerful web application designed to provide a seamless experience for viewing and editing Office documents (Word, Excel, PowerPoint) directly in your browser. Built with a "local-first" philosophy, it ensures your documents remain private and secure while providing a desktop-class editing experience.
+**MyOffice FOSS Office Suite** is a powerful web application designed to provide a seamless experience for viewing and editing Office documents (Word, Excel, PowerPoint) directly in your browser. Built with a "local-first" philosophy, it ensures your documents remain private and secure while providing a desktop-class editing experience.
 
-### 🌍 Access Options
+### 🌍 Live Site
 
-- **Global ([office.ziziyi.com](https://office.ziziyi.com/))**: Hosted on Cloudflare Pages. Recommended for users outside the Asia-Pacific region.
-- **Asia-Pacific Optimized ([o.ziziyi.com](https://o.ziziyi.com/))**: Hosted on EdgeOne. Features a shorter, easier-to-remember domain and offers faster access for users in the Asia-Pacific region (e.g., China, Japan, Singapore).
+- **[charudatta10.github.io/office-website](https://charudatta10.github.io/office-website/)**: Hosted on GitHub Pages.
 
 ## ✨ Key Features
 
@@ -54,7 +53,7 @@
 - **State Management**: [Zustand](https://github.com/pmndrs/zustand)
 - **UI Components**: [Radix UI](https://www.radix-ui.com/) & [Lucide Icons](https://lucide.dev/)
 - **Database**: [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) (via `idb`)
-- **Deployment**: [Cloudflare Pages](https://pages.cloudflare.com/)
+- **Deployment**: [GitHub Pages](https://pages.github.com/)
 
 ## 🛠️ Getting Started
 
@@ -88,11 +87,10 @@
 
 ## 🚢 Deployment
 
-The project is configured for Cloudflare Pages.
+The project is configured for GitHub Pages via `.github/workflows/static.yml`.
 
-- **Production Build**: `pnpm build`
-- **Deploy to Production**: `pnpm deploy`
-- **Deploy Preview**: `pnpm deploy:preview`
+- **Production Build**: `NEXT_PUBLIC_BASE_PATH=/office-website pnpm build`
+- **Deploy**: push to `main`; GitHub Actions publishes the static `out/` export.
 
 ## 🤝 Contributing
 

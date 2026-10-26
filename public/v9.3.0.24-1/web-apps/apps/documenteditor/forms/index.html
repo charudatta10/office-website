@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <base href="https://office-editor.ziziyi.com/v9.3.0.24-1/web-apps/apps/documenteditor/forms/">
+    <base href="./">
     <meta charset="utf-8">
     <title>Documents</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -646,7 +646,7 @@ if ( !window.is_system_theme_dark )
 +function registerServiceWorker() {
     if ('serviceWorker' in navigator && !(window.location.origin.lastIndexOf('file://', 0) === 0)) {
         const serviceWorkerName = 'document_editor_service_worker.js';
-        const serviceWorkerPath = location.origin + '/v9.3.0.24-1/' + serviceWorkerName;
+        const serviceWorkerPath = location.origin + location.pathname.split('/v9.3.0.24-1/')[0] + '/v9.3.0.24-1/' + serviceWorkerName;
         let reg;
         navigator.serviceWorker.register(serviceWorkerPath)
             .then(function (registration) {

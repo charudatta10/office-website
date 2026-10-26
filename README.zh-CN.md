@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="./public/logo.svg" width="120" height="120" alt="Office App Logo">
+  <img src="./public/logo.png" width="120" height="120" alt="Office App Logo">
 </p>
 
-<h1 align="center">ZIZIYI Office</h1>
+<h1 align="center">MyOffice FOSS Office Suite</h1>
 
 <p align="center">
   <strong>一款现代化、本地优先的 Office 文档预览与编辑解决方案。</strong>
@@ -12,32 +12,31 @@
   <img src="https://img.shields.io/badge/%E7%89%88%E6%9C%AC-0.1.0-blue.svg" alt="Version">
   <img src="https://img.shields.io/badge/%E6%A1%86%E6%9E%B6-Next.js%2015-black.svg" alt="Framework">
   <img src="https://img.shields.io/badge/%E8%AE%B8%E5%8F%AF%E8%AF%81-AGPL%20v3-orange.svg" alt="License">
-  <a href="https://o.ziziyi.com/">
-    <img src="https://img.shields.io/badge/%E7%BD%91%E7%AB%99-o.ziziyi.com-blue.svg" alt="Website">
+  <a href="https://charudatta10.github.io/office-website/">
+    <img src="https://img.shields.io/badge/%E7%BD%91%E7%AB%99-charudatta10.github.io/office-website-blue.svg" alt="Website">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://o.ziziyi.com/"><strong>🚀 在线演示</strong></a> | <span>中文版</span> | <a href="README.md">English</a>
+  <a href="https://charudatta10.github.io/office-website/"><strong>🚀 在线演示</strong></a> | <span>中文版</span> | <a href="README.md">English</a>
 </p>
 
 <p align="center">
   <strong>快速创建:</strong>
-  <a href="https://o.ziziyi.com/editor?new=docx">📄 Word 文档</a> | 
-  <a href="https://o.ziziyi.com/editor?new=xlsx">📊 Excel 表格</a> | 
-  <a href="https://o.ziziyi.com/editor?new=pptx">📽️ PowerPoint 幻灯片</a>
+  <a href="https://charudatta10.github.io/office-website/editor?new=docx">📄 Word 文档</a> | 
+  <a href="https://charudatta10.github.io/office-website/editor?new=xlsx">📊 Excel 表格</a> | 
+  <a href="https://charudatta10.github.io/office-website/editor?new=pptx">📽️ PowerPoint 幻灯片</a>
 </p>
 
 ---
 
 ## 🚀 概览
 
-**ZIZIYI Office** 是一款强大的 Web 应用程序，旨在为您提供在浏览器中直接查看和编辑 Office 文档（Word、Excel、PowerPoint）的无缝体验。它基于“本地优先”的设计理念，在提供桌面级编辑体验的同时，确保您的文档隐私和安全。
+**MyOffice FOSS Office Suite** 是一款强大的 Web 应用程序，旨在为您提供在浏览器中直接查看和编辑 Office 文档（Word、Excel、PowerPoint）的无缝体验。它基于“本地优先”的设计理念，在提供桌面级编辑体验的同时，确保您的文档隐私和安全。
 
-### 🌍 访问选项
+### 🌍 在线站点
 
-- **亚太地区优化访问 ([o.ziziyi.com](https://o.ziziyi.com/))**：部署于 EdgeOne 平台。域名更简短易记，且在亚太地区（如中国、日本、新加坡等）网络连接速度更快。
-- **全球通用访问 ([office.ziziyi.com](https://office.ziziyi.com/))**：部署于 Cloudflare Pages 平台。建议亚太地区以外的用户使用。
+- **[charudatta10.github.io/office-website](https://charudatta10.github.io/office-website/)**：部署于 GitHub Pages。
 
 ## ✨ 核心特性
 
@@ -54,7 +53,7 @@
 - **状态管理**: [Zustand](https://github.com/pmndrs/zustand)
 - **UI 组件**: [Radix UI](https://www.radix-ui.com/) & [Lucide Icons](https://lucide.dev/)
 - **数据库**: [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) (通过 `idb`)
-- **部署**: [Cloudflare Pages](https://pages.cloudflare.com/)
+- **部署**: [GitHub Pages](https://pages.github.com/)
 
 ## 🛠️ 快速开始
 
@@ -88,11 +87,10 @@
 
 ## 🚢 部署
 
-本项目已预配置 Cloudflare Pages。
+本项目通过 `.github/workflows/static.yml` 部署到 GitHub Pages。
 
-- **生产环境构建**: `pnpm build`
-- **部署到生产环境**: `pnpm deploy`
-- **预览部署**: `pnpm deploy:preview`
+- **生产环境构建**: `NEXT_PUBLIC_BASE_PATH=/office-website pnpm build`
+- **部署**: 推送到 `main` 分支，GitHub Actions 会发布静态 `out/` 导出。
 
 ## 🤝 贡献
 

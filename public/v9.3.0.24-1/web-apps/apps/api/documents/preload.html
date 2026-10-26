@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <base href="https://office-editor.ziziyi.com/v9.3.0.24-1/web-apps/apps/api/documents/">
+    <base href="./">
     <title>ONLYOFFICE Documents</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=9"/>
@@ -14,7 +14,7 @@
 +function registerServiceWorker() {
     if ('serviceWorker' in navigator && !(window.location.origin.lastIndexOf('file://', 0) === 0)) {
         const serviceWorkerName = 'document_editor_service_worker.js';
-        const serviceWorkerPath = location.origin + '/v9.3.0.24-1/' + serviceWorkerName;
+        const serviceWorkerPath = location.origin + location.pathname.split('/v9.3.0.24-1/')[0] + '/v9.3.0.24-1/' + serviceWorkerName;
         let reg;
         navigator.serviceWorker.register(serviceWorkerPath)
             .then(function (registration) {

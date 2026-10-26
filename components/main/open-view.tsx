@@ -8,6 +8,7 @@ import { FolderOpen, Clock, X, Loader2 } from "lucide-react";
 import { useExtracted } from "next-intl";
 import { cn } from "@/lib/utils";
 import { getNewUrl } from "@/utils/editor/utils";
+import { withBasePath } from "@/lib/site";
 import { FilePickerCard } from "@/components/file-picker-card";
 import { DocumentIcon } from "@/components/document-icon";
 import { getDocConfig } from "@/lib/document-types";
@@ -30,7 +31,7 @@ export function OpenView({
 }) {
   const t = useExtracted();
   usePageTitle(
-    t("Free Online Office Editor — Word, Excel, PowerPoint | ZIZIYI"),
+    t("Free Online Office Editor — Word, Excel, PowerPoint | MyOffice"),
   );
   const [recentFiles, setRecentFiles] = useState<RecentFileRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -75,7 +76,7 @@ export function OpenView({
     if (loadingTemplate) return;
     setLoadingTemplate(tpl.name);
     try {
-      const url = `/files/${encodeURIComponent(tpl.filename)}`;
+      const url = withBasePath(`/files/${encodeURIComponent(tpl.filename)}`);
       await server.openUrl(url, { fileType: tpl.type, fileName: tpl.filename });
       router.push("/editor");
     } catch (err) {
@@ -198,7 +199,7 @@ export function OpenView({
                 <Image
                   width={480}
                   height={270}
-                  src={`/files/${encodeURIComponent(tpl.preview)}`}
+                   src={withBasePath(`/files/${encodeURIComponent(tpl.preview)}`)}
                   alt={tpl.name}
                   className="w-full min-h-full h-auto object-cover object-top group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                 />

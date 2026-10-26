@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { OpenView } from "@/components/main/open-view";
 import { getRecommendedTemplates } from "@/utils/templates";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title:
-    "Free Online Office Editor — Open & Edit Word, Excel, PowerPoint | ZIZIYI",
+    "Free Online Office Editor — Open & Edit Word, Excel, PowerPoint | MyOffice",
   description:
-    "Open, view, and edit DOCX, XLSX, PPTX files directly in your browser for free. No upload, no login — your documents stay private. Drag & drop with the browser extension.",
+    "MyOffice FOSS Office Suite opens, views, and edits DOCX, XLSX, PPTX files directly in your browser for free. No upload, no login — your documents stay private. Drag & drop with the browser extension.",
   keywords: [
     "online office editor",
     "free Word editor online",
@@ -17,21 +18,21 @@ export const metadata: Metadata = {
     "edit pptx in browser",
     "no upload document editor",
     "privacy first office",
-    "ZIZIYI Office",
+    "MyOffice FOSS Office Suite",
   ],
   alternates: {
-    canonical: "https://office.ziziyi.com",
+    canonical: SITE_URL,
   },
   openGraph: {
-    title: "Free Online Office Editor — Word, Excel, PowerPoint | ZIZIYI",
+    title: "Free Online Office Editor — Word, Excel, PowerPoint | MyOffice",
     description:
       "Edit Office documents in your browser for free. No upload, no login — fully private.",
-    url: "https://office.ziziyi.com",
+    url: SITE_URL,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Office Editor — Word, Excel, PowerPoint | ZIZIYI",
+    title: "Free Online Office Editor — Word, Excel, PowerPoint | MyOffice",
     description:
       "Edit Office documents in your browser for free. No upload, no login — fully private.",
   },

@@ -14,6 +14,7 @@ import { createXHRProxy } from "@/utils/editor/xhr";
 import { DocEditor } from "@/utils/editor/types";
 import { createExtensionLoader } from "@/utils/extension";
 import InstallExtensionDialog from "@/components/install-extension-dialog";
+import { withBasePath } from "@/lib/site";
 
 export default function Page() {
   const server = useAppStore((state) => state.server);
@@ -139,9 +140,9 @@ export default function Page() {
               },
             },
             logo: {
-              image: location.origin + "/logo-name_black.svg",
-              imageDark: location.origin + "/logo-name_white.svg",
-              url: location.origin,
+              image: location.origin + withBasePath("/logo.png"),
+              imageDark: location.origin + withBasePath("/logo.png"),
+              url: location.origin + withBasePath("/"),
             },
           },
         },

@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { SITE_URL, withBasePath } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -8,9 +9,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/settings", "/api/"],
+        disallow: [withBasePath("/settings"), withBasePath("/api/")],
       },
     ],
-    sitemap: "https://office.ziziyi.com/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

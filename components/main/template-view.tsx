@@ -14,6 +14,7 @@ import { useExtracted } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
+import { withBasePath } from "@/lib/site";
 
 import type { Template } from "@/utils/templates";
 import { usePageTitle } from "@/hooks/use-page-title";
@@ -24,7 +25,11 @@ export function TemplateView({
   initialTemplates: Template[];
 }) {
   const t = useExtracted();
-  usePageTitle(t("Free Office Templates — Word, Excel & PowerPoint | ZIZIYI Office"));
+  usePageTitle(
+    t(
+      "Free Office Templates — Word, Excel & PowerPoint | MyOffice FOSS Office Suite",
+    ),
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [activeType, setActiveType] = useState("All");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -38,7 +43,7 @@ export function TemplateView({
     if (loadingTemplate) return;
     setLoadingTemplate(tpl.name);
     try {
-      const url = `/files/${encodeURIComponent(tpl.filename)}`;
+      const url = withBasePath(`/files/${encodeURIComponent(tpl.filename)}`);
       await server.openUrl(url, { fileType: tpl.type, fileName: tpl.filename });
       router.push("/editor");
     } catch (err) {
@@ -167,7 +172,7 @@ export function TemplateView({
                   <Image
                     width={480}
                     height={270}
-                    src={`/files/${encodeURIComponent(tpl.preview)}`}
+                     src={withBasePath(`/files/${encodeURIComponent(tpl.preview)}`)}
                     alt={tpl.name}
                     className="w-full min-h-full h-auto object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-out"
                   />

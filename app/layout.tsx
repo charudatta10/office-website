@@ -3,12 +3,13 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import { getMessages } from "next-intl/server";
 import { I18nProvider } from "@/components/i18n-provider";
 import { ProgressProvider } from "@/components/progress-provider";
+import { SITE_NAME, SITE_URL, withBasePath } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://office.ziziyi.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "ZIZIYI Office — Free Online Word, Excel & PowerPoint Editor",
+    default: `${SITE_NAME} — Free Online Word, Excel & PowerPoint Editor`,
     template: "%s",
   },
   description:
@@ -27,23 +28,22 @@ export const metadata: Metadata = {
     "edit excel online",
     "serverless office",
     "privacy first",
-    "ZIZIYI",
+    "MyOffice FOSS Office Suite",
   ],
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: withBasePath("/favicon.ico"), sizes: "any" },
+      { url: withBasePath("/logo.png"), type: "image/png", sizes: "1254x1254" },
     ],
-    apple: "/logo.png",
+    apple: withBasePath("/logo.png"),
   },
   openGraph: {
-    siteName: "ZIZIYI Office",
+    siteName: SITE_NAME,
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    creator: "@nicezizi",
   },
   robots: {
     index: true,
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   other: {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-title": "ZIZIYI Office",
+    "apple-mobile-web-app-title": SITE_NAME,
   },
 };
 
@@ -73,8 +73,8 @@ export default async function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "ZIZIYI Office",
-    url: "https://office.ziziyi.com",
+    name: SITE_NAME,
+    url: SITE_URL,
     description:
       "Open, view, and edit Word, Excel, and PowerPoint documents directly in your browser. No upload, no server — your files stay private.",
     applicationCategory: "BusinessApplication",

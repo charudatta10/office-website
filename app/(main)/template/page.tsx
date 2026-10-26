@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { TemplateView } from "@/components/main/template-view";
 import { getTemplates } from "@/utils/templates";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title:
-    "Free Office Templates — Word, Excel & PowerPoint | ZIZIYI Office",
+    "Free Office Templates — Word, Excel & PowerPoint | MyOffice FOSS Office Suite",
   description:
     "Download free professional templates for Word documents, Excel spreadsheets, and PowerPoint presentations. No login required — open and edit directly in your browser.",
   keywords: [
@@ -16,21 +17,23 @@ export const metadata: Metadata = {
     "spreadsheet template free",
     "presentation template free",
     "document template online",
-    "ZIZIYI Office",
+    "MyOffice FOSS Office Suite",
   ],
   alternates: {
-    canonical: "https://office.ziziyi.com/template",
+    canonical: `${SITE_URL}/template`,
   },
   openGraph: {
-    title: "Free Office Templates — Word, Excel & PowerPoint | ZIZIYI Office",
+    title:
+      "Free Office Templates — Word, Excel & PowerPoint | MyOffice FOSS Office Suite",
     description:
       "Free professional templates for Word, Excel, and PowerPoint. Edit directly in your browser — no login needed.",
-    url: "https://office.ziziyi.com/template",
+    url: `${SITE_URL}/template`,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Office Templates — Word, Excel & PowerPoint | ZIZIYI Office",
+    title:
+      "Free Office Templates — Word, Excel & PowerPoint | MyOffice FOSS Office Suite",
     description:
       "Free professional templates for Word, Excel, and PowerPoint. Edit directly in your browser.",
   },

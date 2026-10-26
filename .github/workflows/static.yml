@@ -17,25 +17,53 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Must match the engine stub directory in public/ (the -1 suffix is a
+      # cache-bust revision, not a Docker tag — see the Dockerfile's HASH arg).
+      APP_ROOT_VERSION: v9.3.0.24-1
+      DS_IMAGE: onlyoffice/documentserver:9.3.0
     steps:
       - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
         with:
-          lfs: true   # harmless if you don't use LFS; needed if the wasm files are in LFS
+          bun-version: 1.4.3
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - run: bun install --frozen-lockfile
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
-
-      - run: pnpm build
+      - run: bun run build
         env:
           NEXT_PUBLIC_BASE_PATH: /office-website
+
+      # The OnlyOffice engine runtime (sdkjs, web-apps vendor code, fonts)
+      # is not committed to git — extract it from the DocumentServer image
+      # so the editor works on the static GitHub Pages deployment.
+      - name: Fetch OnlyOffice engine assets
+        run: |
+          set -euo pipefail
+          docker pull "$DS_IMAGE"
+          cid=$(docker create "$DS_IMAGE")
+          dst="out/$APP_ROOT_VERSION"
+          docker cp "$cid:/var/www/onlyoffice/documentserver/sdkjs" "$dst/sdkjs"
+          docker cp "$cid:/var/www/onlyoffice/documentserver/web-apps" "$dst/web-apps"
+          docker cp "$cid:/var/www/onlyoffice/documentserver/fonts" "$dst/fonts"
+          docker cp "$cid:/var/www/onlyoffice/documentserver/sdkjs-plugins" "$dst/sdkjs-plugins"
+          docker rm "$cid"
+          # api.js is normally generated at container startup from this template
+          cp "$dst/web-apps/apps/api/documents/api.js.tpl" \
+             "$dst/web-apps/apps/api/documents/api.js"
+          # documentserver-generate-allfonts.sh must have run in the image;
+          # fail fast if the generated files are missing
+          test -f "$dst/sdkjs/common/AllFonts.js"
+
+      # The committed stub tree in public/ only exists so the build finds
+      # api.js/preload.html; it is fully shadowed by the extracted assets.
+      - name: Verify editor entry points
+        run: |
+          set -euo pipefail
+          test -s "out/$APP_ROOT_VERSION/web-apps/apps/api/documents/api.js"
+          test -s "out/$APP_ROOT_VERSION/web-apps/apps/documenteditor/main/index.html"
+          test -s "out/$APP_ROOT_VERSION/web-apps/vendor/requirejs/require.js"
 
       # GitHub Pages can't send "Content-Encoding: br", so decompress any
       # pre-compressed x2t assets in the build output

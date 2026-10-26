@@ -231,8 +231,8 @@ export function SettingsView() {
         </section>
       </div>
 
-      <div className="p-6 bg-yellow-50/50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/30 rounded-2xl">
-        <p className="text-sm text-yellow-800 dark:text-yellow-200/80 leading-relaxed">
+      <div className="p-6 bg-accent/40 dark:bg-accent/20 border border-primary/20 rounded-2xl">
+        <p className="text-sm text-secondary-foreground dark:text-accent leading-relaxed">
           {t(
             "Changing these settings will affect the OnlyOffice editor interface. Some changes may require reloading the editor to take full effect.",
           )}

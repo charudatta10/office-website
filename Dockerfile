@@ -27,7 +27,7 @@ RUN documentserver-generate-allfonts.sh false
 # ============================================================
 # Stage 2: Next.js website builder
 # ============================================================
-FROM node:22-alpine AS builder
+FROM oven/bun:1-alpine AS builder
 
 # Re-declare args inside this stage to make them visible here.
 ARG DS_VERSION
@@ -38,20 +38,17 @@ ENV NEXT_PUBLIC_APP_ROOT=/v${DS_VERSION}-${HASH}
 
 WORKDIR /app
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
-
 # Copy dependency manifests first for better layer caching.
-COPY package.json pnpm-lock.yaml ./
+COPY package.json bun.lock ./
 
 # Install dependencies (frozen lockfile for reproducibility).
-RUN pnpm install --frozen-lockfile
+RUN bun install --frozen-lockfile
 
 # Copy the rest of the source code.
 COPY . .
 
 # Run the Next.js static export build.
-RUN pnpm build
+RUN bun run build
 
 # ============================================================
 # Stage 3: Caddy production server

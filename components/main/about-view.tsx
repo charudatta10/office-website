@@ -39,7 +39,7 @@ export function AboutView() {
             <Github className="w-6 h-6 text-primary" />
           </div>
           <h3 className="text-xl font-bold mb-3">{t("Open Source")}</h3>
-          <p className="text-text-secondary dark:text-slate-400 text-sm leading-relaxed mb-6">
+          <p className="text-muted-foreground text-sm leading-relaxed mb-6">
             {t(
               "We believe in the power of community. The source code for this project is available on GitHub for everyone to view, contribute, and improve.",
             )}
@@ -61,7 +61,7 @@ export function AboutView() {
           <h3 className="text-xl font-bold mb-3">
             {t("Powered by OnlyOffice")}
           </h3>
-          <p className="text-text-secondary dark:text-slate-400 text-sm leading-relaxed">
+          <p className="text-muted-foreground text-sm leading-relaxed">
             {t(
               "This project is built upon the robust foundation of OnlyOffice open-source code. We strictly adhere to and support OnlyOffice's open-source license, ensuring a sustainable ecosystem for document processing.",
             )}
@@ -69,11 +69,11 @@ export function AboutView() {
         </div>
       </div>
 
-      <div className="p-10 bg-linear-to-br from-primary/10 to-orange-500/10 dark:from-primary/15 dark:to-orange-500/5 border border-primary/20 dark:border-primary/30 rounded-3xl text-center space-y-6 shadow-lg shadow-primary/5">
+      <div className="p-10 bg-linear-to-br from-primary/10 to-accent/40 dark:to-accent/20 border border-primary/20 dark:border-primary/30 rounded-3xl text-center space-y-6 shadow-lg shadow-primary/5">
         <Heart className="w-8 h-8 text-red-500 dark:text-red-400 mx-auto fill-red-500 dark:fill-red-400 animate-pulse" />
         <div className="space-y-2">
           <h3 className="text-2xl font-bold">{t("Our Commitment")}</h3>
-          <p className="text-text-secondary dark:text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground text-sm max-w-xl mx-auto leading-relaxed">
             {t(
               "Our goal is to provide a seamless, local-first office experience while maintaining the highest standards of compatibility and open-source compliance.",
             )}

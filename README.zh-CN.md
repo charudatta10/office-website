@@ -59,8 +59,7 @@
 
 ### 前提条件
 
-- Node.js 22+
-- pnpm (推荐)
+- [Bun](https://bun.sh) 1.4+
 
 ### 安装步骤
 
@@ -74,13 +73,13 @@
 2. 安装依赖:
 
    ```bash
-   pnpm install
+   bun install
    ```
 
 3. 启动开发服务器:
 
    ```bash
-   pnpm dev
+   bun dev
    ```
 
 4. 在浏览器中访问 [http://localhost:3000](http://localhost:3000)。
@@ -89,7 +88,7 @@
 
 本项目通过 `.github/workflows/static.yml` 部署到 GitHub Pages。
 
-- **生产环境构建**: `NEXT_PUBLIC_BASE_PATH=/office-website pnpm build`
+- **生产环境构建**: `NEXT_PUBLIC_BASE_PATH=/office-website bun run build`
 - **部署**: 推送到 `main` 分支，GitHub Actions 会发布静态 `out/` 导出。
 
 ## 🤝 贡献

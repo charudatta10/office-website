@@ -59,8 +59,7 @@
 
 ### Prerequisites
 
-- Node.js 22+
-- pnpm (recommended)
+- [Bun](https://bun.sh) 1.4+
 
 ### Installation
 
@@ -74,13 +73,13 @@
 2. Install dependencies:
 
    ```bash
-   pnpm install
+   bun install
    ```
 
 3. Run the development server:
 
    ```bash
-   pnpm dev
+   bun dev
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -89,8 +88,12 @@
 
 The project is configured for GitHub Pages via `.github/workflows/static.yml`.
 
-- **Production Build**: `NEXT_PUBLIC_BASE_PATH=/office-website pnpm build`
+- **Production Build**: `NEXT_PUBLIC_BASE_PATH=/office-website bun run build`
 - **Deploy**: push to `main`; GitHub Actions publishes the static `out/` export.
+- The OnlyOffice engine runtime (`/v9.3.0.24-1/` assets) is extracted from the
+  `onlyoffice/documentserver` Docker image during CI, so the editor works on
+  the static GitHub Pages deployment. For self-hosting, use `./build.sh`
+  (Docker + Caddy).
 
 ## 🤝 Contributing
 

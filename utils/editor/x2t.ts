@@ -25,12 +25,7 @@ export class X2tConverter {
   private messageId = 0;
   private pendingMessages = new Map<number, PendingMessage>();
 
-  constructor() {
-    // Auto-initialize worker on construction
-    if (globalThis.Worker) {
-      this.init();
-    }
-  }
+  constructor() {}
 
   /**
    * Get next unique message ID

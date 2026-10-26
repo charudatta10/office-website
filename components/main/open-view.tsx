@@ -151,7 +151,7 @@ export function OpenView({
                 key={type}
                 href={getNewUrl(type)}
                 className={cn(
-                  "flex flex-col items-center justify-center gap-2 p-4 bg-muted/40 dark:bg-white/5 border border-border rounded-2xl hover:shadow-lg hover:-translate-y-0.5 transition-all group overflow-hidden md:flex-1 md:min-w-0",
+                  "flex flex-col items-center justify-center gap-2 p-4 bg-card border border-border rounded-2xl hover:shadow-lg hover:-translate-y-0.5 transition-all group overflow-hidden md:flex-1 md:min-w-0",
                   doc.hoverBorderColor,
                 )}
               >
@@ -193,7 +193,7 @@ export function OpenView({
             >
               <div
                 className={cn(
-                  "aspect-16/10 rounded-lg border border-border dark:border-white/5 shadow-sm group-hover:shadow-md group-hover:border-primary/30 transition-all relative overflow-hidden bg-white dark:bg-zinc-900",
+                  "aspect-16/10 rounded-lg border border-border shadow-sm group-hover:shadow-md group-hover:border-primary/30 transition-all relative overflow-hidden bg-card",
                 )}
               >
                 <Image

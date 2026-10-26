@@ -10,9 +10,9 @@ import { useAppStore } from "@/store";
 import { addRecentFile } from "@/utils/recent-files";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "@/components/main/mobile-nav";
-import { ExtensionPrompt } from "@/components/extension-prompt";
 import { isDarkTheme } from "@/utils/utils";
 import { APP_ROOT, PRELOAD_HTML } from "@/utils/editor/utils";
+import { BASE_PATH } from "@/lib/site";
 
 export default function MainLayout({
   children,
@@ -20,7 +20,12 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const pathname = usePathname();
+  // usePathname includes basePath (e.g. /office-website/template); route
+  // matching below is done against app-relative paths.
+  const pathname = usePathname().replace(
+    new RegExp(`^${BASE_PATH}(?=/|$)`),
+    "",
+  ) || "/";
   const t = useExtracted();
   const { server, theme } = useAppStore();
   const preloadRef = useRef<HTMLDivElement>(null);
@@ -53,7 +58,7 @@ export default function MainLayout({
     <div
       className={cn(
         "flex flex-col h-screen overflow-hidden font-sans transition-colors duration-500 relative",
-        "bg-muted text-slate-900 dark:bg-[#0b0b0b] dark:text-white",
+        "bg-muted text-foreground",
       )}
     >
       {/* Background Decorative Elements for Dark Mode */}
@@ -73,7 +78,7 @@ export default function MainLayout({
         <main
           className={cn(
             "flex-1 md:mb-3 rounded-none md:rounded-2xl overflow-hidden flex flex-col transition-colors duration-500 shadow-none md:shadow-xl relative",
-            "backdrop-blur-3xl bg-white dark:bg-[#141414]/60  dark:md:border dark:md:border-white/10",
+            "backdrop-blur-3xl bg-card dark:border dark:md:border-white/10",
           )}
         >
           <div className="flex-1 overflow-y-auto custom-scrollbar">
@@ -88,9 +93,6 @@ export default function MainLayout({
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
         <MobileNav pathname={pathname} />
       </div>
-
-      {/* First-visit extension install prompt */}
-      <ExtensionPrompt />
 
       {/* Global Drag and Drop Overlay */}
       <DragDropOverlay

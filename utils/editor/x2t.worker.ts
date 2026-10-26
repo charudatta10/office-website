@@ -67,10 +67,8 @@ async function ensureInit(): Promise<void> {
   return initPromise;
 }
 
-// Auto-initialize on worker creation
-ensureInit().catch((err) => {
-  console.error("[x2t.worker] Auto-init failed:", err);
-});
+// x2t (~9.5MB wasm) is initialized lazily on the first convert message —
+// creating the worker must not download it eagerly on every page load.
 
 /**
  * Clean up temporary files after conversion

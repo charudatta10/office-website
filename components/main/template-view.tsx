@@ -148,7 +148,7 @@ export function TemplateView({
                 className={cn(
                   "px-4 py-1.5 rounded-full border text-sm font-medium transition-all focus:outline-none",
                   activeCategory === cat
-                    ? "bg-foreground border-foreground text-background shadow-md"
+                    ? "bg-secondary border-secondary text-secondary-foreground shadow-md"
                     : "bg-card border-border text-text-secondary hover:border-foreground hover:text-foreground",
                 )}
               >
@@ -172,6 +172,7 @@ export function TemplateView({
                   <Image
                     width={480}
                     height={270}
+                    loading="lazy"
                      src={withBasePath(`/files/${encodeURIComponent(tpl.preview)}`)}
                     alt={tpl.name}
                     className="w-full min-h-full h-auto object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-out"
